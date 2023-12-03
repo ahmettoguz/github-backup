@@ -1,8 +1,6 @@
 import os
 import requests
 from datetime import datetime
-import shutil
-
 
 from credentials import  TOKEN
 
@@ -30,31 +28,32 @@ def getRepositories():
 
     return repositories
 
-def cloneRepositories(repositories, mainFolderPath):
+def saveRepositories(repositories, mainFolderPath):
     for repo in repositories:
         repo_name = repo['name']
         repo_url = repo.get('clone_url')
         is_private = repo.get('private', False)
         clone_directory = './private' if is_private else './public'
-        os.system(f'git clone {repo_url} {os.path.join(mainFolderPath ,clone_directory, repo_name)}')
-        print(f"Cloned: {repo_name} into {clone_directory}")
-        
-def getMainFolderName(currentDate):
-    mainFolderPath = './repositoryBackup' 
+        repo_path = os.path.join(mainFolderPath, clone_directory, repo_name)
 
-    if os.path.exists(mainFolderPath):
-        mainFolderPath = mainFolderPath + '_' + currentDate.replace('/', '_')
-    
-    return mainFolderPath
+        # Check if the repository directory exists
+        if os.path.exists(repo_path):
+            # Repository directory exists, perform git pull for all branches
+            os.chdir(repo_path)
+            os.system('git fetch --all && git pull --all')
+            print(f"Updated: {repo_name} in {clone_directory}")
+        else:
+            # Repository directory does not exist, clone the repository
+            os.system(f'git clone --recursive {repo_url} {repo_path}')
+            print(f"Cloned: {repo_name} into {clone_directory}")
 
-def createFolders(mainFolderPath):
-    if os.path.exists(mainFolderPath):
-        shutil.rmtree(mainFolderPath)
-    os.makedirs(mainFolderPath)
-    subdirectories = ['summary', 'private', 'public']
-    [os.makedirs(os.path.join(mainFolderPath, subdir), exist_ok=True) for subdir in subdirectories]
+def createFoldersIfNotExist(mainFolderPath):
+    if not os.path.exists(mainFolderPath):
+        os.makedirs(mainFolderPath)
+        subdirectories = ['summary', 'private', 'public']
+        [os.makedirs(os.path.join(mainFolderPath, subdir), exist_ok=True) for subdir in subdirectories]
 
-def count_repositories(repositories):
+def countRepositories(repositories):
     total_count = len(repositories)
     public_count = sum(1 for repo in repositories if not repo['private'])
     private_count = total_count - public_count
@@ -65,11 +64,13 @@ def writeSumFile(mainFolderPath, summaryOutput):
         file.write(summaryOutput)
 
 def main():
+    mainFolderPath = './repositoryBackup'
+
     # get repositories
     repositories = getRepositories()
 
     # count types of the repositories
-    total_count, public_count, private_count = count_repositories(repositories)
+    total_count, public_count, private_count = countRepositories(repositories)
     
     # check repository count
     if(total_count == 0):
@@ -87,16 +88,13 @@ def main():
     if user_input != "y":
         exit()
 
-    # get folder name for further operations
-    mainFolderPath = getMainFolderName(currentDate)
-
     # create folders
-    createFolders(mainFolderPath)
+    createFoldersIfNotExist(mainFolderPath)
 
     # write summary file
     writeSumFile(mainFolderPath, summaryOutput)
 
-    # clone repos
-    cloneRepositories(repositories, mainFolderPath)
+    # clone and update repos
+    saveRepositories(repositories, mainFolderPath)
 
 main()
