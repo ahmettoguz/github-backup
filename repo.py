@@ -29,23 +29,28 @@ def getRepositories():
     return repositories
 
 def saveRepositories(repositories, mainFolderPath):
+    originalPath = os.getcwd()
+
     for repo in repositories:
         repo_name = repo['name']
         repo_url = repo.get('clone_url')
         is_private = repo.get('private', False)
-        clone_directory = './private' if is_private else './public'
-        repo_path = os.path.join(mainFolderPath, clone_directory, repo_name)
+        clone_directory = '/private' if is_private else '/public'
+        repo_path = mainFolderPath + clone_directory + '/'+ repo_name
 
-        # Check if the repository directory exists
+        os.chdir(originalPath)
+        print()
+
+        # Repository directory exists, perform git pull if not clone
         if os.path.exists(repo_path):
-            # Repository directory exists, perform git pull for all branches
+            print(f"Pulling: {repo_name} in {clone_directory}")
             os.chdir(repo_path)
             os.system('git fetch --all && git pull --all')
-            print(f"Updated: {repo_name} in {clone_directory}")
         else:
-            # Repository directory does not exist, clone the repository
+            print(f"Clonning: {repo_name} into {clone_directory}")
             os.system(f'git clone --recursive {repo_url} {repo_path}')
-            print(f"Cloned: {repo_name} into {clone_directory}")
+            
+    os.chdir(originalPath)
 
 def createFoldersIfNotExist(mainFolderPath):
     if not os.path.exists(mainFolderPath):
@@ -57,9 +62,37 @@ def countRepositories(repositories):
     total_count = len(repositories)
     public_count = sum(1 for repo in repositories if not repo['private'])
     private_count = total_count - public_count
-    return total_count, public_count, private_count
+    return {'total_count': total_count, 'public_count': public_count, 'private_count': private_count}
 
-def writeSumFile(mainFolderPath, summaryOutput):
+def getFolderSize(folder_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(folder_path):
+        for filename in filenames:
+            filepath = os.path.join(dirpath, filename)
+            total_size += os.path.getsize(filepath)
+    
+    return format_size(total_size)
+
+def format_size(size_in_bytes):
+    units = ['B', 'KB', 'MB', 'GB', 'TB']
+    
+    size = size_in_bytes
+    unit_index = 0
+    
+    while size >= 1024 and unit_index < len(units) - 1:
+        size /= 1024.0
+        unit_index += 1
+    
+    return f"{size:.2f} {units[unit_index]}"
+
+def writeSumFile(mainFolderPath, repositoryCounts):
+    backup_folder_size = getFolderSize('./repositoryBackup')
+    summaryOutput = f"Statistics of the repositories:\n\n" \
+                f"Repository Backup Folder Size: {backup_folder_size}\n" \
+                f"Total Repositories: {repositoryCounts['total_count']}\n" \
+                f"Public Repositories: {repositoryCounts['public_count']}\n" \
+                f"Private Repositories: {repositoryCounts['private_count']}"
+    
     with open(mainFolderPath + '/summary/summary.txt', 'w') as file:
         file.write(summaryOutput)
 
@@ -70,20 +103,19 @@ def main():
     repositories = getRepositories()
 
     # count types of the repositories
-    total_count, public_count, private_count = countRepositories(repositories)
+    repositoryCounts = countRepositories(repositories)
     
     # check repository count
-    if(total_count == 0):
+    if(repositoryCounts['total_count'] == 0):
         print("Total repository count is 0. Please check token.")        
         exit(0)
 
     # display summary output and get approval
-    currentDate = datetime.now().strftime("%d/%m/%Y")
-    summaryOutput = f"Date       : {currentDate.replace('_', '/')}\n" \
-                  f"Total Repo : {total_count}\n" \
-                  f"Public     : {public_count}\n" \
-                  f"Private    : {private_count}"    
-    print(summaryOutput)
+    approvalOutput = f"Statistics of the repositories:\n\n" \
+                f"Total Repositories: {repositoryCounts['total_count']}\n" \
+                f"Public Repositories: {repositoryCounts['public_count']}\n" \
+                f"Private Repositories: {repositoryCounts['private_count']}"
+    print(approvalOutput)
     user_input = input("Do you want to backup github repositories? (y/n): ").lower()
     if user_input != "y":
         exit()
@@ -91,10 +123,10 @@ def main():
     # create folders
     createFoldersIfNotExist(mainFolderPath)
 
-    # write summary file
-    writeSumFile(mainFolderPath, summaryOutput)
-
     # clone and update repos
     saveRepositories(repositories, mainFolderPath)
+
+    # write summary file
+    writeSumFile(mainFolderPath, repositoryCounts)
 
 main()
