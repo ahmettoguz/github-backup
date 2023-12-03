@@ -111,7 +111,7 @@ def main():
         exit(0)
 
     # display summary output and get approval
-    approvalOutput = f"Statistics of the repositories:\n\n" \
+    approvalOutput = f"\n---\nStatistics of the repositories:\n\n" \
                 f"Total Repositories: {repositoryCounts['total_count']}\n" \
                 f"Public Repositories: {repositoryCounts['public_count']}\n" \
                 f"Private Repositories: {repositoryCounts['private_count']}"
