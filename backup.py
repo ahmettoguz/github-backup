@@ -86,9 +86,12 @@ def format_size(size_in_bytes):
     return f"{size:.2f} {units[unit_index]}"
 
 def writeSumFile(mainFolderPath, repositoryCounts):
-    backup_folder_size = getFolderSize('./repositoryBackup')
+    currentDate = datetime.now().strftime("%d/%m/%Y")
+    backupFolderSize = getFolderSize('./repositoryBackup')
+
     summaryOutput = f"Statistics of the repositories:\n\n" \
-                f"Repository Backup Folder Size: {backup_folder_size}\n" \
+                f"Last Backup Date: {currentDate}\n" \
+                f"Repository Backup Folder Size: {backupFolderSize}\n" \
                 f"Total Repositories: {repositoryCounts['total_count']}\n" \
                 f"Public Repositories: {repositoryCounts['public_count']}\n" \
                 f"Private Repositories: {repositoryCounts['private_count']}"
@@ -128,5 +131,9 @@ def main():
 
     # write summary file
     writeSumFile(mainFolderPath, repositoryCounts)
+
+    print("\n---")
+    print("Backup process is done")
+    print("Backup size is :" , getFolderSize('./repositoryBackup'))
 
 main()
