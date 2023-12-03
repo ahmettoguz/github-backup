@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Provide github token:"
+echo "Provide github token: (https://github.com/settings/tokens)"
 read token
 # read -s token
 
