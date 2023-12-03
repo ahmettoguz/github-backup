@@ -45,7 +45,7 @@ def saveRepositories(repositories, mainFolderPath):
         if os.path.exists(repo_path):
             print(f"Pulling: {repo_name} in {clone_directory}")
             os.chdir(repo_path)
-            os.system('git fetch --all && git pull --all')
+            os.system('git pull --all')
         else:
             print(f"Clonning: {repo_name} into {clone_directory}")
             os.system(f'git clone --recursive {repo_url} {repo_path}')
