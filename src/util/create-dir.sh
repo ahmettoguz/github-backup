@@ -12,5 +12,6 @@ create_date_directory() {
         echo "Directory '$today' created successfully."
     else
         echo "Error: Failed to create directory '$today'."
+        exit
     fi
 }
