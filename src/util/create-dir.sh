@@ -2,7 +2,7 @@
 
 create_date_directory() {
     # Get today's date in DD-MM-YYYY format
-    local today=$(date +%d-%m-%Y)
+    today=$(date +%d-%m-%Y)
 
     # Create a new directory with today's date
     mkdir "$today"
