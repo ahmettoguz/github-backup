@@ -1,0 +1,8 @@
+{
+  "githubToken": "<GITHUB TOKEN>",
+  "ignoredRepositoryNames": [
+    "<YOUR REPOSITORY NAME>",
+    "hello-world",
+    "my-awesome-project"
+  ]
+}
