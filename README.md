@@ -1,5 +1,8 @@
 ## 🚀🚀🚀 Dev Commands 🚀🚀🚀
 
+### Configuration file
+Edit config.json file for github link and repositories to ignore
+
 ### Clone bare repository
 ````
 git clone --mirror https://github.com/<Username>/<Repo Name>
@@ -19,6 +22,3 @@ git remote set-url origin https://github.com/<Username>/<Repo Name>
 ````
 git remote -v
 ````
-
-
-
