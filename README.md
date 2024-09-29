@@ -1,12 +1,7 @@
 ## 🚀🚀🚀 Dev Commands 🚀🚀🚀
 
 ### Configuration file
-Edit config.json file for github link and repositories to ignore
-
-### Clone bare repository
-````
-git clone --mirror https://github.com/<Username>/<Repo Name>
-````
+Edit `/src/config/config.sh` file.
 
 ### Extract repository
 ````
