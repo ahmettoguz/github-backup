@@ -1,7 +1,7 @@
 #!/bin/bash
 
 request() {
-    local JQ="../src/bin/jq.exe"
+    local JQ="../../src/bin/jq.exe"
 
     if ! command -v "$JQ" &>/dev/null; then
         echo "jq not found at $JQ. Please check the path."

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 clone-private() {
-    cd "./private"
+    cd "../private"
     echo
     echo
     echo
-    echo "################################################### Private Repositories ###################################################"
+    echo "################################################### Private Repositories ####################################################"
     echo
     while IFS= read -r line; do
         # Extract values from the line

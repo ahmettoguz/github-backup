@@ -3,7 +3,7 @@
 display-ignore-list() {
     echo
     echo
-    echo "################################################### Ignored Repositories ###################################################"
+    echo "################################################### Ignored Repositories ####################################################"
     echo
     while IFS= read -r line; do
         # Extract values from the line
@@ -12,7 +12,7 @@ display-ignore-list() {
         repo_url=$(echo "$line" | awk '{print $3}')
 
         if [[ " ${ignoredRepositoryNames[@]} " =~ " $repo_name " ]]; then
-                printf "%-50s %-80s \n" "$repo_name" "$repo_url"
+            echo "$repo_name : $repo_url"
         fi
     done <<<"$REPO_INFO"
     echo

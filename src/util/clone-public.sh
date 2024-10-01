@@ -1,11 +1,11 @@
 #!/bin/bash
 
 clone-public() {
-    cd "../public"
+    cd "./public"
     echo
     echo
     echo
-    echo "################################################### Public Repositories ###################################################"
+    echo "################################################### Public Repositories ####################################################"
     echo
     while IFS= read -r line; do
         # Extract values from the line
