@@ -58,7 +58,7 @@ This project enables the creation of bare backups for both your private and publ
 <h2 id="system-startup">🚀 System Startup</h2> 
 
 * Place your GitHub token in the `src/config/config.sh` file.
-* If there are any repositories you want to ignore, add them to the `src/config/config.sh` file as well."
+* If there are any repositories you want to ignore, add them to the `src/config/config.sh` file as well.
 * Run backup bash script file.
 
 ```
