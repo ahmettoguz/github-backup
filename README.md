@@ -1,4 +1,4 @@
-<h1 id="top" align="center">Github <br/> Repository Backup</h1> 
+<h1 id="top" align="center">Github <br/> Repository Backup</h1>
 
 <br>
 
@@ -18,9 +18,9 @@
 
 <br/>
 
-<h2 id="intro">📌 About Project</h2> 
+<h2 id="intro">📌 About Project</h2>
 
-This project enables the creation of bare backups for both your private and public GitHub repositories, ensuring the safety of your repositories with automated processes.
+This project enables automated bare backups of both your personal and organizational GitHub repositories public and private ensuring the safety and reliability of all your code assets.
 
 <br/>
 
@@ -32,9 +32,11 @@ This project enables the creation of bare backups for both your private and publ
 
 [![Bash](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
 
+[![.Env](https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black)](https://www.ibm.com/docs/bg/aix/7.2?topic=files-env-file)
+
 <br/>
 
-<h2 id="demo">🎥 Demo</h2> 
+<h2 id="demo">🎥 Demo</h2>
 
 <div>
     <img width=1000 src="assets/demo.png">
@@ -44,40 +46,46 @@ This project enables the creation of bare backups for both your private and publ
 
 <h2 id="features">🔥 Features</h2>
 
-* Both private and public repositories can be backed up.
-  
-<br/>
-
-<h2 id="prerequisites">🔒 Prerequisites</h2> 
-
-* Github access token. (Obtainable from https://github.com/settings/tokens)
+- **Private repositories:** Back up both private and public repositories.
+- **User and organization support:** Backup repositories from your own account as well as from other users or organizations.
+- **Ignore list support:** Exclude specific repositories from the backup process by listing them in an ignore list.
+- **.env configuration:** Easily manage tokens and settings through a `.env` file for clean and secure configuration.
 
 <br/>
 
+<h2 id="prerequisites">🔒 Prerequisites</h2>
 
-<h2 id="system-startup">🚀 System Startup</h2> 
+- Github access token. (Obtainable from https://github.com/settings/tokens)
 
-* Place your GitHub token in the `src/config/config.sh` file.
-* If there are any repositories you want to ignore, add them to the `src/config/config.sh` file as well.
-* Run backup bash script file.
+<br/>
 
-```
-bash backup.sh
-```
+<h2 id="system-startup">🚀 System Startup</h2>
 
-* After getting bare clone, to be able to restore repository run that command and create it.
+- Create .env file based on the .env.example file with credentails.
 
 ```
-git clone <Repo name>.git
+cp .env.example .env
 ```
 
-* Associate local repository with remote repository
+- Run backup bash script file.
 
 ```
-git remote set-url origin https://github.com/<User name>/<Repo name>
+bash run.sh
 ```
 
-* Check remote url
+- After getting bare clone, to be able to restore repository, run following command.
+
+```
+git clone <your-repository-name> ~/Desktop/<your-repository-name>
+```
+
+- Associate local repository with remote repository
+
+```
+git remote set-url origin https://github.com/<your-user-name>/<your-repository-name>
+```
+
+- Check remote url
 
 ```
 git remote -v
@@ -85,12 +93,8 @@ git remote -v
 
 <br/>
 
-<h2 id="contributors">👥 Contributors</h2> 
+<h2 id="contributors">👥 Contributors</h2>
 
-<a href="https://github.com/ahmettoguz" target="_blank"><img width=60 height=60 src="https://avatars.githubusercontent.com/u/101711642?v=4"></a> 
+<a href="https://github.com/ahmettoguz" target="_blank"><img width=60 height=60 src="https://avatars.githubusercontent.com/u/101711642?v=4"></a>
 
 ### [🔝](#top)
-
-
-
-git clone ~/Desktop/repository/git-repo-backup/backup/2025-06-09-20-31-18/ahmettoguz/public/git-repo-backup ~/Desktop/cloned-git-repo-backup
