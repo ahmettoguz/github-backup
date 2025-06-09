@@ -25,17 +25,18 @@ get_timestamp() {
 clone_repository_list() {
     local json="$1"
     local timestamp="$2"
-
-    echo "$json" | jq -c '.[]' | while read -r repo; do
-        local full_name=$(echo "$repo" | jq -r '.full_name')
-        local html_url=$(echo "$repo" | jq -r '.html_url')
-        local is_private=$(echo "$repo" | jq -r '.private')
-        local owner=$(echo "$full_name" | cut -d'/' -f1)
-        local visibility_folder=$([[ "$is_private" == "true" ]] && echo "private" || echo "public")
+    shift 2
+    local ignore_list=("$@")
+        local repo_name=$(basename "$full_name")
+        for ignored_repository in "${ignore_list[@]}"; do
+            if [[ "$full_name" == "$ignored_repository" ]]; then
+                echo "Skipping ignored repository: $full_name"
+                continue 2
+            fi
+        done
 
         local target_path="backup/$timestamp/$owner/$visibility_folder"
-
         echo "Cloning $full_name"
-        git clone --quiet  --bare "$html_url" "$target_path/$(basename "$full_name")"
+        git clone --quiet --bare "$html_url" "$target_path/$repo_name"
     done
 }
