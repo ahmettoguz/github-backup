@@ -49,7 +49,7 @@ clone_repository_list() {
         local target_path="backup/$timestamp/$owner/$visibility_folder"
 
         mkdir -p "$target_path"
-        echo "Cloning $full_name"
+        echo "Cloning $full_name ($visibility_folder)"
         git clone --quiet --bare "$html_url" "$target_path/$repo_name"
     done
 }
