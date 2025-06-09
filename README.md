@@ -90,3 +90,7 @@ git remote -v
 <a href="https://github.com/ahmettoguz" target="_blank"><img width=60 height=60 src="https://avatars.githubusercontent.com/u/101711642?v=4"></a> 
 
 ### [🔝](#top)
+
+
+
+git clone ~/Desktop/repository/git-repo-backup/backup/2025-06-09-20-31-18/ahmettoguz/public/git-repo-backup ~/Desktop/cloned-git-repo-backup
