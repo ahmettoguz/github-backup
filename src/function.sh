@@ -35,7 +35,7 @@ clone_repository_list() {
 
         local target_path="backup/$timestamp/$owner/$visibility_folder"
 
-        echo "Cloning $html_url into $target_path"
+        echo "Cloning $full_name"
         git clone --quiet  --bare "$html_url" "$target_path/$(basename "$full_name")"
     done
 }

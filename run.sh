@@ -4,12 +4,7 @@ source .env
 source ./src/function.sh
 
 # request to get repository list
-# github_response_json=$(get_github_response_json)
-
-github_response_json='[
-  {"full_name": "ahmettoguz/git-repo-backup", "html_url": "https://github.com/ahmettoguz/git-repo-backup", "private": false},
-  {"full_name": "ahmettoguz/Minesweeper", "html_url": "https://github.com/ahmettoguz/Minesweeper", "private": false}
-]'
+github_response_json=$(get_github_response_json)
 
 # get timestamp to create unique directory
 target_directory=$(get_timestamp)
