@@ -1,0 +1,10 @@
+####################################### Services
+services:
+  github-backup:
+    build: .
+    image: github-backup-i
+    container_name: github-backup-c
+    env_file:
+      - ./.env
+    volumes:
+      - ./backup:/app/backup

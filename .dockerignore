@@ -1,0 +1,8 @@
+./.git/
+./backup/
+./.env
+./.env.example
+./assets/
+./Dockerfile
+./README.md
+./docker-compose.yml

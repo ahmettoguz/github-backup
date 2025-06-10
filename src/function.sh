@@ -32,7 +32,7 @@ clone_repository_list() {
 
     for i in $(seq 0 $((repo_count - 1))); do
         local full_name=$(echo "$json" | jq -r ".[$i].full_name")
-        local html_url=$(echo "$json" | jq -r ".[$i].clone_url")
+        local html_url=$(echo "$json" | jq -r ".[$i].clone_url" | sed "s|https://|https://$GITHUB_TOKEN@|")
         local is_private=$(echo "$json" | jq -r ".[$i].private")
         local owner=$(echo "$full_name" | cut -d'/' -f1)
         local repo_name=$(echo "$full_name" | cut -d'/' -f2)
