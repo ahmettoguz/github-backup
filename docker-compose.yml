@@ -1,9 +1,0 @@
-####################################### Services
-services:
-  service-github-backup:
-    image: ahmettoguz/github-backup:v1.0.0
-    container_name: container-github-backup
-    env_file:
-      - ./.env
-    volumes:
-      - ./backup:/app/backup
