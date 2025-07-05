@@ -2,7 +2,6 @@
 
 set -e
 
-source .env
 source ./src/function.sh
 
 # request to get repository list
