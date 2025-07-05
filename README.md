@@ -104,10 +104,10 @@ git checkout docker.v1.0.1
 - Manage container.
 
 ```
-docker stop          github-backup-c
-docker rm            github-backup-c
-docker compose up -d github-backup
-docker logs -f       github-backup-c
+docker stop          container-github-backup
+docker rm            container-github-backup
+docker compose up -d service-github-backup
+docker logs -f       container-github-backup
 ```
 
 <br/>
