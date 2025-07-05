@@ -61,6 +61,8 @@ This project enables automated bare backups of both your personal and organizati
 
 <h2 id="releases">🚢 Releases</h2>
 
+&nbsp; [![.](https://img.shields.io/badge/docker.v1.0.1-233838?style=flat&label=version&labelColor=111727&color=1181A1)](https://github.com/ahmettoguz/github-backup/tree/docker.v1.0.1)
+
 &nbsp; [![.](https://img.shields.io/badge/docker.v1.0.0-233838?style=flat&label=version&labelColor=111727&color=1181A1)](https://github.com/ahmettoguz/github-backup/tree/docker.v1.0.0)
 
 &nbsp; [![.](https://img.shields.io/badge/linux.v1.0.0-233838?style=flat&label=version&labelColor=111727&color=1181A1)](https://github.com/ahmettoguz/github-backup/tree/linux.v1.0.0)
@@ -75,15 +77,31 @@ This project enables automated bare backups of both your personal and organizati
 
 <h2 id="system-startup">🚀 System Startup</h2>
 
-- Create `.env` file based on the `.env.example` file with credentails.
+- Clone project.
+
+```
+git clone https://github.com/ahmettoguz/github-backup
+cd github-backup
+```
+
+- Create `.env` file based on the `.env.example` file and configure it appropriately.
 
 ```
 cp .env.example .env
+nano .env
 ```
 
 <br/>
 
 ### Docker
+
+- Switch version.
+
+```
+git checkout docker.v1.0.1
+```
+
+- Manage container.
 
 ```
 docker stop          github-backup-c
@@ -96,13 +114,13 @@ docker logs -f       github-backup-c
 
 ### Bash Script
 
-- Change tag to linux release.
+- Switch version.
 
 ```
 git checkout linux.v1.0.0
 ```
 
-- Run backup bash script file.
+- Run backup bash file.
 
 ```
 bash run.sh
